@@ -7,8 +7,6 @@
  *
  ********************************************************************/
 
-import java.util.Arrays;
-
 public class ProblemSolutions {
 
     /**
@@ -36,14 +34,35 @@ public class ProblemSolutions {
 
         int n = values.length;
 
-        for (int i = 0; i < n - 1; i++) {
-
-            // YOU CODE GOES HERE -- COMPLETE THE INNER LOOP OF THIS
-            // "SELECTION SORT" ALGORITHM.
-            // DO NOT FORGET TO ADD YOUR NAME / SECTION ABOVE
-
+        if (ascending) {
+            for (int i = 0; i < n - 1; i++) {
+                int min = i;
+                for (int j = i + 1; j < n; j++) {
+                    if (values[j] < values[min]) {
+                        min = j;
+                    }
+                }
+                if (min != i) {
+                    int temp = values[min];
+                    values[min] = values[i];
+                    values[i] = temp;
+                }
+            }
+        } else {
+            for (int i = 0; i < n - 1; i++) {
+                int max = i;
+                for (int j = i + 1; j < n; j++) {
+                    if (values[j] > values[max]) {
+                        max = j;
+                    }
+                }
+                if (max != i) {
+                    int temp = values[max];
+                    values[max] = values[i];
+                    values[i] = temp;
+                }
+            }
         }
-
     } // End class selectionSort
 
 
