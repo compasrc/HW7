@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+
 /******************************************************************
  *
  *   RYAN COMPAS / 272-001
@@ -23,7 +25,7 @@ public class ProblemSolutions {
      * @param values        - int[] array to be sorted.
      * @param ascending     - if true,method performs an ascending sort, else descending.
      *                        There are two method signatures allowing this parameter
-     *                        to not be passed and defaulting to 'true (or ascending sort).
+     *                        to not be passed and defaulting to 'true' (or ascending sort).
      */
 
     public  void selectionSort(int[] values) {
@@ -34,6 +36,7 @@ public class ProblemSolutions {
 
         int n = values.length;
 
+        // Case for ascending selection sort
         if (ascending) {
             for (int i = 0; i < n - 1; i++) {
                 int min = i;
@@ -42,6 +45,7 @@ public class ProblemSolutions {
                         min = j;
                     }
                 }
+                // Perform swap
                 if (min != i) {
                     int temp = values[min];
                     values[min] = values[i];
@@ -49,6 +53,7 @@ public class ProblemSolutions {
                 }
             }
         } else {
+            // Case for descending selection sort
             for (int i = 0; i < n - 1; i++) {
                 int max = i;
                 for (int j = i + 1; j < n; j++) {
@@ -56,6 +61,7 @@ public class ProblemSolutions {
                         max = j;
                     }
                 }
+                // Perform swap
                 if (max != i) {
                     int temp = values[max];
                     values[max] = values[i];
@@ -111,15 +117,40 @@ public class ProblemSolutions {
 
     private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right)
     {
-        // YOUR CODE GOES HERE, THIS METHOD IS NO MORE THAN THE STANDARD MERGE PORTION
-        // OF A MERGESORT, EXCEPT THE NUMBERS DIVISIBLE BY K MUST GO FIRST WITHIN THE
-        // SEQUENCE PER THE DISCUSSION IN THE PROLOGUE ABOVE.
-        //
-        // NOTE: YOU CAN PROGRAM THIS WITH A SPACE COMPLEXITY OF O(1) OR O(N LOG N).
-        // AGAIN, THIS IS REFERRING TO SPACE COMPLEXITY. O(1) IS IN-PLACE, O(N LOG N)
-        // ALLOCATES AUXILIARY DATA STRUCTURES (TEMPORARY ARRAYS). IT WILL BE EASIER
-        // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
-        // OF THIS PROGRAMMING EXERCISES.
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        int[] leftArray = new int[n1 + 1];
+        int[] rightArray = new int[n2 + 1];
+
+        for (int i = 0; i < n1; i++){
+            leftArray[i] = arr[left + i];
+        }
+        for (int j = 0; j < n2; j++){
+            rightArray[j] = arr[mid + 1 + j];
+        }
+
+        leftArray[n1] = Integer.MAX_VALUE;
+        rightArray[n2] = Integer.MAX_VALUE;
+
+        int i = 0;
+        int j = 0;
+        for (int index = left; index <= right; index++) {
+            if (leftArray[i] % k == 0 && rightArray[j] % k != 0) {
+                arr[index] = leftArray[i];
+                i++;
+            } else if (leftArray[i] % k != 0 && rightArray[j] % k == 0) {
+                arr[index] = rightArray[j];
+                j++;
+            } else if (leftArray[i] <= rightArray[j]) {
+                arr[index] = leftArray[i];
+                i++;
+            } else {
+                arr[index] = rightArray[j];
+                j++;
+            }
+        }
+
 
         return;
 
