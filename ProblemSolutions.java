@@ -1,4 +1,5 @@
 import java.lang.reflect.Array;
+import java.util.Arrays;
 
 /******************************************************************
  *
@@ -204,10 +205,19 @@ public class ProblemSolutions {
 
     public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
 
-        // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
+        // Sort asteroids in ascending order
+        Arrays.sort(asteroids);
 
-        return false;
-
+        // Iterate through asteroids starting with smallest - add mass to planet if asteroid is smaller
+        for (int i = 0; i < asteroids.length; i++){
+            if (mass > asteroids[i]){
+                mass += asteroids[i];
+            } else {
+                // Return false if asteroid is bigger than current planet mass
+                return false;
+            }
+        }
+        return true;
     }
 
 
