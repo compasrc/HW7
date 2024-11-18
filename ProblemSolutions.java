@@ -252,9 +252,23 @@ public class ProblemSolutions {
 
     public static int numRescueSleds(int[] people, int limit) {
 
-        // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
+        // Sort array in ascending order
+        Arrays.sort(people);
+        int numSleds = 0;
 
-        return -1;
+        // Check the weights of the current person and next person to see if they can be paired or not.
+        // If paired, increment 'i' a second time to account for the pair.
+        for (int i = 0; i < people.length; i++){
+            if (people[i] > limit){
+                break;
+            } else if (people[i] <= limit) {
+                numSleds++;
+                if (i < people.length - 1 && people[i] + people[i + 1] <= limit){
+                    i++;
+                }
+            }
+        }
+        return numSleds;
 
     }
 
