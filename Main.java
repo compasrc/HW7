@@ -23,7 +23,7 @@
 
 import java.util.Arrays;
 
-class   Main {
+class       Main {
 
     public static void main(String[] args) {
         ProblemSolutions ps = new ProblemSolutions();

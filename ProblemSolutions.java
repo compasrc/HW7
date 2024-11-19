@@ -118,12 +118,15 @@ public class ProblemSolutions {
 
     private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right)
     {
+        // Find sizes of subarrays to be merged
         int n1 = mid - left + 1;
         int n2 = right - mid;
 
+        // Initialize left and right arrays
         int[] leftArray = new int[n1 + 1];
         int[] rightArray = new int[n2 + 1];
 
+        // Fill arrays with left and right subarrays
         for (int i = 0; i < n1; i++){
             leftArray[i] = arr[left + i];
         }
@@ -131,16 +134,18 @@ public class ProblemSolutions {
             rightArray[j] = arr[mid + 1 + j];
         }
 
+        // Assign near infinite values to array values at indices n1 and n2 to avoid out of bounds errors
         leftArray[n1] = Integer.MAX_VALUE;
         rightArray[n2] = Integer.MAX_VALUE;
 
         int i = 0;
         int j = 0;
+        // Loop through the arrays, first adding values divisible by K, then from the subarrays
         for (int index = left; index <= right; index++) {
-            if (leftArray[i] % k == 0 && rightArray[j] % k != 0) {
+            if (leftArray[i] % k == 0) {
                 arr[index] = leftArray[i];
                 i++;
-            } else if (leftArray[i] % k != 0 && rightArray[j] % k == 0) {
+            } else if (rightArray[j] % k == 0) {
                 arr[index] = rightArray[j];
                 j++;
             } else if (leftArray[i] <= rightArray[j]) {
